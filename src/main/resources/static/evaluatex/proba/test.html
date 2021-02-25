@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="testDiv"></div>
+    <div id="testDiv2"></div>
+    <!-- <div>$$\sqrt{25}\cdot10-\frac{6}{15+6}\cdot5$$</div> -->
+    <input type="text" id="testInput"> <button onclick="test();">click me</button>
+
+</body>
+
+<script src="dist/evaluatex.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+// window.MathJax = {
+//   loader: {
+//     load: ['[tex]/tagformat']
+//   },
+//   startup: {
+//     pageReady: () => {
+//       alert('Running MathJax');
+//       return MathJax.startup.defaultPageReady();
+//     }
+//   },
+//   tex: {
+//     packages: {'[+]': ['tagformat', 'autoload']},
+//     tagSide: 'left',
+//     macros: {
+//       RR: '{\\bf R}',
+//       bold: ['{\\bf #1}',1]
+//     },
+//     tagformat: {
+//        tag: (n) => '[' + n + ']'
+//     }
+//   }
+// };
+
+// MathJax = {
+//   loader: {
+//     load: ['input/tex'],
+//     'input/tex': {
+//       ready: (name) => console.log(name + ' ready'),
+//       failed: (error) => console.log(error.package + ' failed')
+//     }
+//   }
+// };
+let problem = "\\sqrt{25}\\cdot10-\\frac{6}{15+6}\\cdot5";
+let fn = evaluatex(problem,{}, { latex: true });
+let result = fn();
+let testDiv = document.getElementById("testDiv");
+let testDiv2 = document.getElementById("testDiv2");
+testDiv.innerText = result;
+testDiv2.innerHTML = `$$${problem}$$`;
+console.log(testDiv2.innerHTML);
+
+function test(){
+let testInput = document.getElementById('testInput');
+let div = document.createElement("div");
+div.id = "testDiv3";
+div.innerHTML = `$$${testInput.value}$$`;
+document.body.appendChild(div);
+
+MathJax.typesetPromise().then(() => {
+
+  MathJax.typesetPromise();
+}).catch((err) => console.log(err.message));
+
+</script>
+</html>

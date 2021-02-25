@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+<body>
+    
+
+    <!-- <p><span class="math display">\[\frac{15}{5}+\sqrt{16}\cdot \sqrt{25}\]</span></p> -->
+    <!-- <p><span class="math display">\[\frac{15}{5}+\sqrt{16}\cdot 25\]</span></p> -->
+    <p><span class="math display">\[\frac{15}{5}+\sqrt{16}\cdot 25\]</span></p>
+    <hr>
+    <span>\[\sum_{i=0}^{19}10\]</span>
+    <p><span class="math display" id="mathTest"></span></p>
+
+    <div>
+        <input type="text" id="inputForm">
+    </div>
+    <div>
+        <button type="button" onclick="myFunction()">Try it</button>
+        <p id="result"></p>
+    </div>
+
+    <p id="viewFunction"></p>
+
+    <script src="/dist/evaluatex.min.js"></script>
+
+    <script>
+
+        window.MathJax = {
+        loader: {
+            load: ['[tex]/tagformat']
+        },
+        startup: {
+            pageReady: () => {
+            alert('Running MathJax');
+            return MathJax.startup.defaultPageReady();
+            }
+        },
+        tex: {
+            packages: {'[+]': ['tagformat', 'autoload']},
+            tagSide: 'left',
+            macros: {
+            RR: '{\\bf R}',
+            bold: ['{\\bf #1}',1]
+            },
+            tagformat: {
+            tag: (n) => '[' + n + ']'
+            }
+        }
+        };
+
+
+        let inputForm;
+        function myFunction() {
+            inputForm = document.getElementById("inputForm").value;
+            console.log(inputForm);
+         
+            let fn = evaluatex(inputForm, {}, { latex: true });
+            let result = fn();
+            
+            let resultShow = document.getElementById("result");
+            let mathTest = document.getElementById("mathTest");
+            resultShow.innerText = "result: " +  result;
+
+            let span = document.createElement("math")
+            let viewFunction = document.getElementById("viewFunction");
+            // viewFunction.innerText = "\\[" + inputForm + "\\]";
+            // viewFunction.innerHTML = "\\[\\frac{15}{5}+\sqrt{16}\cdot 25\\]";
+            span.className = "math display";
+            viewFunction.appendChild(span);
+            span.innerText = `\\[${inputForm}\\]`;
+            // console.log(mathTest);
+            console.log(mathTest.innerHTML);
+            // console.log(mathTest.innerHTML);
+            // console.log(mathTest.value);
+            // span.innerHTML = '\[' + inputForm + '\]';
+
+        }
+    
+    </script>
+</body>
+</html>

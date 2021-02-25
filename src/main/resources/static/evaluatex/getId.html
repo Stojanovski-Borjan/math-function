@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onclick="printId(this.value);">
+    <button id="button1" value="test1">Button 1</button>
+    <button id="button2" value="test2">Button 2</button>
+    <button id="button3" value="test3">Button 3</button>
+    
+    <p id="p_tag_here">Paragraph</p>
+    <h1 id="h1_tag_here">h1</h1>
+
+    <script>
+        function printId(params) {
+            params = params || window.event;
+            params = params.target || params.srcElement;
+            console.log("ID: " + params.value)
+        }
+
+    </script>
+</body>
+</html>
